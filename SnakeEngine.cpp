@@ -20,6 +20,25 @@ Position SnakeEngine::RandomEmptyPosition() {
     return pos;
 }
 
+bool SnakeEngine::HandleInput() const {
+    if (inputDev->HasInput()) {
+        Input input = inputDev->TakeInput();
+        switch (input) {
+            case QUIT:
+                return true;
+            case INPUT_UP:
+            case INPUT_DOWN:
+            case INPUT_RIGHT:
+            case INPUT_LEFT:
+                snake->UpdateDirection((Direction) input);
+                break;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
 bool SnakeEngine::Tick() {
     Position nextPos = snake->NextPosition();
     if (snake->In(nextPos))
@@ -37,33 +56,12 @@ void SnakeEngine::StartGame() {
     bool quit = false;
     while (!quit) {
         display->ReDraw(snake, food);
+
         quit = HandleInput();
+
         quit |= Tick();
 
         Sleep(REFRESH_TIME_MS);
     }
 
-}
-
-bool SnakeEngine::HandleInput() const {
-    Input input;
-
-    bool quit = false;
-    if (inputDev->HasInput()) {
-        input = inputDev->TakeInput();
-        switch (input) {
-            case QUIT:
-                quit = true;
-                break;
-            case INPUT_UP:
-            case INPUT_DOWN:
-            case INPUT_RIGHT:
-            case INPUT_LEFT:
-                snake->UpdateDirection((Direction) input);
-                break;
-            default:
-                break;
-        }
-    }
-    return quit;
 }
