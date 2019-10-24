@@ -21,6 +21,7 @@ int main() {
     Snake snake = Snake(RIGHT);
     Position food = Position(0.8 * BOARD_SIZE, 0.8 * BOARD_SIZE);
     Display *display = new ConsoleDisplay();
+    SnakeEngine engine = SnakeEngine(&snake);
     while (!quit) {
         display->Clear();
         display->Draw(snake, food);
@@ -41,7 +42,7 @@ int main() {
                     break;
             }
         }
-        quit |= SnakeEngine::Tick(snake, food);
+        quit |= engine.Tick(food);
         Sleep(REFRESH_TIME_MS);
     }
     return 0;

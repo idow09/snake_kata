@@ -1,26 +1,30 @@
 #include "SnakeEngine.h"
 
+SnakeEngine::SnakeEngine(Snake *snake) {
+    this->snake = snake;
+}
+
 Position SnakeEngine::RandomPosition() {
     return Position(std::rand() % BOARD_SIZE, std::rand() % BOARD_SIZE); // NOLINT(cert-msc30-c,cert-msc50-cpp)
 }
 
-Position SnakeEngine::RandomEmptyPosition(Snake snake) {
+Position SnakeEngine::RandomEmptyPosition() {
     Position pos;
     do {
         pos = RandomPosition();
-    } while (snake.In(pos));
+    } while (snake->In(pos));
     return pos;
 }
 
-bool SnakeEngine::Tick(Snake &snake, Position &food) {
-    Position nextPos = snake.NextPosition();
-    if (snake.In(nextPos))
+bool SnakeEngine::Tick(Position &food) {
+    Position nextPos = snake->NextPosition();
+    if (snake->In(nextPos))
         return true; // Game Over
     if (nextPos == food) {
-        food = RandomEmptyPosition(snake);
-        snake.Move(true);
+        food = RandomEmptyPosition();
+        snake->Move(true);
     } else {
-        snake.Move();
+        snake->Move();
     }
     return false;
 }

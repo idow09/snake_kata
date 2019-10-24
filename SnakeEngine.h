@@ -5,12 +5,16 @@
 #include "Snake.h"
 
 class SnakeEngine {
+    Snake *snake;
+
+    Position RandomEmptyPosition();
+
     static Position RandomPosition();
 
-    static Position RandomEmptyPosition(Snake snake);
-
 public:
-    static bool Tick(Snake &snake, Position &food);
+    explicit SnakeEngine(Snake *snake);
+
+    bool Tick(Position &food);
 };
 
 #endif //IDOSNAKE_SNAKEENGINE_H
