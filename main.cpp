@@ -6,24 +6,26 @@
 #include "ConsoleDisplay.h"
 #include "SnakeEngine.h"
 #include "ConsoleInputDevice.h"
+#include "InputDevice.h"
 
 using namespace std;
 
 
 int main() {
     std::srand(std::time(nullptr)); // NOLINT(cert-msc32-c,cert-msc51-cpp)
+
     bool quit = false;
     Input input;
     Direction dir;
-    ConsoleInputDevice inputDev;
+    InputDevice *inputDev = new ConsoleInputDevice();
     Snake snake = Snake(RIGHT);
     Position food = Position(0.8 * BOARD_SIZE, 0.8 * BOARD_SIZE);
     Display *display = new ConsoleDisplay();
     while (!quit) {
         display->Clear();
         display->Draw(snake, food);
-        if (inputDev.HasInput()) {
-            input = inputDev.TakeInput();
+        if (inputDev->HasInput()) {
+            input = inputDev->TakeInput();
             switch (input) {
                 case QUIT:
                     quit = true;

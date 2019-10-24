@@ -3,12 +3,13 @@
 
 
 #include "Snake.h"
+#include "InputDevice.h"
 
-class ConsoleInputDevice {
+class ConsoleInputDevice : public InputDevice {
 public:
-    Input TakeInput();
+    Input TakeInput() override;
 
-    bool HasInput();
+    bool HasInput() override;
 };
 
 

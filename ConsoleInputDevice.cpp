@@ -1,7 +1,6 @@
 #include <conio.h>
 #include "ConsoleInputDevice.h"
 
-// returns true for exit
 Input ConsoleInputDevice::TakeInput() {
     switch (_getch()) {
         case 119: // w
