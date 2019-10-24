@@ -5,40 +5,9 @@
 #include "Position.h"
 #include "Display.h"
 #include "ConsoleDisplay.h"
+#include "SnakeEngine.h"
 
 using namespace std;
-
-class SnakeUtil {
-    static Position RandomPosition() {
-        return Position(std::rand() % BOARD_SIZE, std::rand() % BOARD_SIZE); // NOLINT(cert-msc30-c,cert-msc50-cpp)
-    }
-
-public:
-    static Position RandomEmptyPosition(Snake snake) {
-        Position pos;
-        do {
-            pos = RandomPosition();
-        } while (snake.In(pos));
-        return pos;
-    }
-};
-
-class SnakeRules {
-
-public:
-    static bool Tick(Snake &snake, Position &food) {
-        Position nextPos = snake.NextPosition();
-        if (snake.In(nextPos))
-            return true; // Game Over
-        if (nextPos == food) {
-            food = SnakeUtil::RandomEmptyPosition(snake);
-            snake.Move(true);
-        } else {
-            snake.Move();
-        }
-        return false;
-    }
-};
 
 // returns true for exit
 bool HandleInput(Snake &snake) {
@@ -74,12 +43,11 @@ int main() {
         display->Clear();
         display->Draw(snake, food);
         quit = HandleInput(snake);
-        quit |= SnakeRules::Tick(snake, food);
+        quit |= SnakeEngine::Tick(snake, food);
         Sleep(REFRESH_TIME_MS);
     }
     return 0;
 }
-
 
 /*
  * TODO
