@@ -6,6 +6,7 @@
 
 class SnakeEngine {
     Snake *snake;
+    Position food;
 
     Position RandomEmptyPosition();
 
@@ -14,7 +15,9 @@ class SnakeEngine {
 public:
     explicit SnakeEngine(Snake *snake);
 
-    bool Tick(Position &food);
+    bool Tick();
+
+    Position WhereIsFood();
 };
 
 #endif //IDOSNAKE_SNAKEENGINE_H
