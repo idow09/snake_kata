@@ -3,4 +3,4 @@ project(IdoSnake)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(IdoSnake main.cpp)
+add_executable(IdoSnake main.cpp Snake.cpp Snake.h Position.cpp Position.h Config.h)

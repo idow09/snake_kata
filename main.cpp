@@ -1,130 +1,15 @@
 #include <iostream>
-#include <list>
 #include <conio.h>
 #include <windows.h>
 #include <ctime>
+#include "Snake.h"
+#include "Position.h"
 
 using namespace std;
 
-static const int BOARD_SIZE = 15;
-static const int REFRESH_TIME_MS = 100;
-static const int INIT_SNAKE_SIZE = 3;
-
-enum Direction {
-    UP, LEFT, DOWN, RIGHT
-};
-
-enum Symbol {
-    EMPTY, WALL, SNAKE_HEAD, SNAKE_BODY, FOOD, NEWLINE
-};
-
-struct Position {
-    Position() {
-        r = 0;
-        c = 0;
-    }
-
-    Position(int r, int c) {
-        this->r = r;
-        this->c = c;
-    }
-
-    Position(Position const &pos) {
-        this->r = pos.r;
-        this->c = pos.c;
-    }
-
-    int r;
-    int c;
-
-    Position operator+(Direction dir) {
-        switch (dir) {
-            case RIGHT:
-                return Position(r, (c + 1) % BOARD_SIZE);
-            case LEFT:
-                return Position(r, (c - 1 + BOARD_SIZE) % BOARD_SIZE);
-            case DOWN:
-                return Position((r + 1) % BOARD_SIZE, c);
-            case UP:
-                return Position((r - 1 + BOARD_SIZE) % BOARD_SIZE, c);
-            default:
-                return Position(r, c);
-        }
-    }
-
-    friend std::ostream &operator<<(std::ostream &os, const Position &pos) {
-        os << "(" << pos.r << "," << pos.c << ")";
-        return os;
-    }
-
-    bool operator==(const Position &rhs) const {
-        return r == rhs.r &&
-               c == rhs.c;
-    }
-
-    bool operator!=(const Position &rhs) const {
-        return !(rhs == *this);
-    }
-};
-
-class Snake {
-    Direction curDir;
-    list<Position> body;
-public:
-    explicit Snake(Direction curDir) : curDir(curDir) {
-        body = list<Position>();
-        for (int i = 0; i < INIT_SNAKE_SIZE; ++i) {
-            body.push_front(Position(2, 2 + i));
-        }
-    }
-
-    const list<Position> &getBody() const {
-        return body;
-    }
-
-    void UpdateDirection(Direction newDir) {
-        switch (newDir) {
-            case LEFT:
-                curDir = curDir == RIGHT ? curDir : newDir;
-                break;
-            case RIGHT:
-                curDir = curDir == LEFT ? curDir : newDir;
-                break;
-            case UP:
-                curDir = curDir == DOWN ? curDir : newDir;
-                break;
-            case DOWN:
-                curDir = curDir == UP ? curDir : newDir;
-                break;
-            default:
-                break;
-        }
-    }
-
-    Position NextPosition() {
-        Position pos = body.front() + curDir;
-        return pos;
-    }
-
-    bool In(const Position &position) {
-        for (const auto &bodyPart : body) {
-            if (bodyPart == position)
-                return true;
-        }
-        return false;
-    }
-
-    void Move(bool becomeLonger = false) {
-        body.push_front(NextPosition());
-        if (!becomeLonger)
-            body.pop_back();
-    }
-
-};
-
 class Display {
 public:
-    void Draw(const Snake &snake, const Position &food) {
+    void Draw(Snake snake, const Position &food) {
         Symbol screen[BOARD_SIZE + 2][BOARD_SIZE + 2];
 
         // Put borders on screen
@@ -278,4 +163,8 @@ int main() {
  * design better! no static functions
  * edge case: snake is filling the whole screen, food cannot be generated
  *
+ *
+ * &getBody()
+ * remove redundant include statements
+ * snake init in 0.2 BOARD_SIZE
  */
