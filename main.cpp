@@ -1,45 +1,12 @@
-#include <iostream>
 #include <conio.h>
 #include <windows.h>
 #include <ctime>
 #include "Snake.h"
 #include "Position.h"
 #include "Display.h"
+#include "ConsoleDisplay.h"
 
 using namespace std;
-
-class ConsoleDisplay : public Display {
-public:
-    void Clear() override {
-        system("cls");
-    }
-
-    void Draw(Symbol symbol) override {
-        switch (symbol) {
-            case EMPTY:
-                cout << ' ';
-                break;
-            case WALL:
-                cout << 'X';
-                break;
-            case SNAKE_HEAD:
-                cout << '8';
-                break;
-            case SNAKE_BODY:
-                cout << 'O';
-                break;
-            case FOOD:
-                cout << '*';
-                break;
-            case NEWLINE:
-                cout << '\n';
-                break;
-            default:
-                cout << "ERROR!";
-                break;
-        }
-    }
-};
 
 class SnakeUtil {
     static Position RandomPosition() {
