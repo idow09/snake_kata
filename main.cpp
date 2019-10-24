@@ -13,10 +13,10 @@ using namespace std;
 int main() {
     std::srand(std::time(nullptr)); // NOLINT(cert-msc32-c,cert-msc51-cpp)
 
+    auto *snake = new Snake(RIGHT);
     InputDevice *inputDev = new ConsoleInputDevice();
-    Snake snake = Snake(RIGHT);
     Display *display = new ConsoleDisplay();
-    SnakeEngine engine = SnakeEngine(&snake, inputDev, display);
+    SnakeEngine engine = SnakeEngine(snake, inputDev, display);
     engine.StartGame();
     return 0;
 }

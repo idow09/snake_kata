@@ -1,6 +1,6 @@
 #include "Display.h"
 
-void Display::Draw(Snake snake, const Position &food) {
+void Display::Draw(Snake *snake, const Position &food) {
     Symbol screen[BOARD_SIZE + 2][BOARD_SIZE + 2];
 
     // Put borders on screen
@@ -14,7 +14,7 @@ void Display::Draw(Snake snake, const Position &food) {
     }
 
     // Put snake on screen
-    std::list<Position> snakeBody = snake.getBody();
+    std::list<Position> snakeBody = snake->getBody();
     auto it = snakeBody.begin();
     screen[it->r + 1][it->c + 1] = SNAKE_HEAD;
     it++;
@@ -32,4 +32,9 @@ void Display::Draw(Snake snake, const Position &food) {
         }
         Draw(NEWLINE);
     }
+}
+
+void Display::ReDraw(Snake *snake, const Position &food) {
+    Clear();
+    Draw(snake, food);
 }

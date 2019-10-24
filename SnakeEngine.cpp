@@ -35,12 +35,11 @@ bool SnakeEngine::Tick() {
 
 void SnakeEngine::StartGame() {
     bool quit = false;
-
     while (!quit) {
-        display->Clear();
-        display->Draw(*snake, food);
+        display->ReDraw(snake, food);
         quit = HandleInput();
         quit |= Tick();
+
         Sleep(REFRESH_TIME_MS);
     }
 
