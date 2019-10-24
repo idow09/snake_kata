@@ -6,11 +6,15 @@ static const int INIT_SNAKE_SIZE = 3;
 static const int REFRESH_TIME_MS = 100;
 
 enum Direction {
-    UP = 0, LEFT, DOWN, RIGHT
+    UP = 0, DOWN = 1, RIGHT = 2, LEFT = 3
+};
+
+enum Input {
+    INPUT_UP = 0, INPUT_DOWN = 1, INPUT_RIGHT = 2, INPUT_LEFT = 3, QUIT, UNKNOWN
 };
 
 enum Symbol {
-    EMPTY = 0, WALL, SNAKE_HEAD, SNAKE_BODY, FOOD, NEWLINE
+    EMPTY, WALL, SNAKE_HEAD, SNAKE_BODY, FOOD, NEWLINE
 };
 
 #endif //IDOSNAKE_CONFIG_H

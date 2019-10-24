@@ -1,4 +1,3 @@
-#include <conio.h>
 #include <windows.h>
 #include <ctime>
 #include "Snake.h"
@@ -6,43 +5,40 @@
 #include "Display.h"
 #include "ConsoleDisplay.h"
 #include "SnakeEngine.h"
+#include "ConsoleInputDevice.h"
 
 using namespace std;
 
-// returns true for exit
-bool HandleInput(Snake &snake) {
-    if (_kbhit())
-        switch (_getch()) {
-            case 119: // w
-                snake.UpdateDirection(UP);
-                break;
-            case 97: // a
-                snake.UpdateDirection(LEFT);
-                break;
-            case 115: // s
-                snake.UpdateDirection(DOWN);
-                break;
-            case 100: // d
-                snake.UpdateDirection(RIGHT);
-                break;
-            case 113: // q
-                return true;
-            default:
-                break;
-        }
-    return false;
-}
 
 int main() {
     std::srand(std::time(nullptr)); // NOLINT(cert-msc32-c,cert-msc51-cpp)
     bool quit = false;
+    Input input;
+    Direction dir;
+    ConsoleInputDevice inputDev;
     Snake snake = Snake(RIGHT);
     Position food = Position(0.8 * BOARD_SIZE, 0.8 * BOARD_SIZE);
     Display *display = new ConsoleDisplay();
     while (!quit) {
         display->Clear();
         display->Draw(snake, food);
-        quit = HandleInput(snake);
+        if (inputDev.HasInput()) {
+            input = inputDev.TakeInput();
+            switch (input) {
+                case QUIT:
+                    quit = true;
+                    break;
+                case INPUT_UP:
+                case INPUT_DOWN:
+                case INPUT_RIGHT:
+                case INPUT_LEFT:
+                    dir = (Direction) input;
+                    snake.UpdateDirection(dir);
+                    break;
+                default:
+                    break;
+            }
+        }
         quit |= SnakeEngine::Tick(snake, food);
         Sleep(REFRESH_TIME_MS);
     }
