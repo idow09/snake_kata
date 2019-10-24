@@ -3,9 +3,13 @@
 
 #include "Position.h"
 #include "Snake.h"
+#include "InputDevice.h"
+#include "Display.h"
 
 class SnakeEngine {
     Snake *snake;
+    InputDevice *inputDev;
+    Display *display;
     Position food;
 
     Position RandomEmptyPosition();
@@ -13,11 +17,13 @@ class SnakeEngine {
     static Position RandomPosition();
 
 public:
-    explicit SnakeEngine(Snake *snake);
+    explicit SnakeEngine(Snake *snake, InputDevice *pDevice, Display *pDisplay);
 
     bool Tick();
 
-    Position WhereIsFood();
+    void StartGame();
+
+    bool HandleInput() const;
 };
 
 #endif //IDOSNAKE_SNAKEENGINE_H
