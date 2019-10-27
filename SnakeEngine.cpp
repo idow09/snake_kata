@@ -34,6 +34,9 @@ void SnakeEngine::HandleInput() {
             case INPUT_LEFT:
                 snake->UpdateDirection((Direction) input);
                 break;
+            case SPECIAL:
+                snake->setTongue(true);
+                break;
             default:
                 break;
         }
@@ -43,10 +46,13 @@ void SnakeEngine::HandleInput() {
 bool SnakeEngine::GameShouldUpdate(unsigned long time) const { return time % GAME_TIME_UNIT_MS == 0; }
 
 void SnakeEngine::Tick() {
+    snake->ApplyNewDirection();
     Position nextPos = snake->NextPosition();
-    if (snake->In(nextPos))
+    if (snake->In(nextPos)) {
         gameOver = true;
-    else if (nextPos == food) {
+        return;
+    }
+    if (nextPos == food || (snake->WithTongue() && snake->FutureTonguePosition() == food)) {
         food = RandomEmptyPosition();
         snake->Move(true);
     } else {
@@ -57,10 +63,11 @@ void SnakeEngine::Tick() {
 void SnakeEngine::StartGame() {
     unsigned long time = 0;
     while (!gameOver) {
-        display->ReDraw(snake, food);
         HandleInput();
         if (GameShouldUpdate(time)) {
             Tick();
+            display->ReDraw(snake, food);
+            snake->setTongue(false);
         }
         Sleep(REFRESH_TIME_MS);
         time += REFRESH_TIME_MS;

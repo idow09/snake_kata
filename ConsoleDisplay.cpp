@@ -19,6 +19,9 @@ void ConsoleDisplay::Draw(Symbol symbol) {
         case SNAKE_BODY:
             cout << 'o';
             break;
+        case SNAKE_TONGUE:
+            cout << '=';
+            break;
         case FOOD:
             cout << '*';
             break;

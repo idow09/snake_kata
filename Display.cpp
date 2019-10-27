@@ -22,6 +22,12 @@ void Display::Draw(Snake *snake, const Position &food) {
         screen[it->r + 1][it->c + 1] = SNAKE_BODY;
     }
 
+    // Put tongue on screen
+    if (snake->WithTongue()) {
+        Position tongue = snake->NextPosition();
+        screen[tongue.r + 1][tongue.c + 1] = SNAKE_TONGUE;
+    }
+
     // Put food on screen
     screen[food.r + 1][food.c + 1] = FOOD;
 
