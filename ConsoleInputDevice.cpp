@@ -3,13 +3,13 @@
 
 Input ConsoleInputDevice::TakeInput() {
     switch (_getch()) {
-        case 119: // w
+        case 56: // w
             return INPUT_UP;
-        case 115: // s
+        case 53: // s
             return INPUT_DOWN;
-        case 100: // d
+        case 54: // d
             return INPUT_RIGHT;
-        case 97: // a
+        case 52: // a
             return INPUT_LEFT;
         case 113: // q
             return QUIT;
