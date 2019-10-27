@@ -3,7 +3,8 @@
 
 static const int BOARD_SIZE = 20;
 static const int INIT_SNAKE_SIZE = 3;
-static const int REFRESH_TIME_MS = 100;
+static const int REFRESH_TIME_MS = 10;
+static const int GAME_TIME_UNIT_MS = 4 * REFRESH_TIME_MS;
 
 enum Direction {
     UP = 0, DOWN = 1, RIGHT = 2, LEFT = 3

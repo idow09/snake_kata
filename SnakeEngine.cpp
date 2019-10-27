@@ -40,6 +40,8 @@ void SnakeEngine::HandleInput() {
     }
 }
 
+bool SnakeEngine::GameShouldUpdate(unsigned long time) const { return time % GAME_TIME_UNIT_MS == 0; }
+
 void SnakeEngine::Tick() {
     Position nextPos = snake->NextPosition();
     if (snake->In(nextPos))
@@ -53,10 +55,14 @@ void SnakeEngine::Tick() {
 }
 
 void SnakeEngine::StartGame() {
+    unsigned long time = 0;
     while (!gameOver) {
         display->ReDraw(snake, food);
         HandleInput();
-        Tick();
+        if (GameShouldUpdate(time)) {
+            Tick();
+        }
         Sleep(REFRESH_TIME_MS);
+        time += REFRESH_TIME_MS;
     }
 }

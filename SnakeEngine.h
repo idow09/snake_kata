@@ -25,6 +25,8 @@ public:
     void StartGame();
 
     void HandleInput();
+
+    bool GameShouldUpdate(unsigned long time) const;
 };
 
 #endif //IDOSNAKE_SNAKEENGINE_H
