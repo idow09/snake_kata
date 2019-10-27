@@ -14,10 +14,10 @@ void ConsoleDisplay::Draw(Symbol symbol) {
             cout << 'X';
             break;
         case SNAKE_HEAD:
-            cout << '8';
+            cout << 'O';
             break;
         case SNAKE_BODY:
-            cout << 'O';
+            cout << 'o';
             break;
         case FOOD:
             cout << '*';
