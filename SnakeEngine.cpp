@@ -6,7 +6,8 @@
 SnakeEngine::SnakeEngine(Snake *snake, InputDevice *inputDev, Display *display) : snake(snake), inputDev(inputDev),
                                                                                   display(display),
                                                                                   food(0.8 * BOARD_SIZE,
-                                                                                       0.8 * BOARD_SIZE) {}
+                                                                                       0.8 * BOARD_SIZE),
+                                                                                  gameOver(false) {}
 
 Position SnakeEngine::RandomPosition() {
     return Position(std::rand() % BOARD_SIZE, std::rand() % BOARD_SIZE); // NOLINT(cert-msc30-c,cert-msc50-cpp)
@@ -20,12 +21,13 @@ Position SnakeEngine::RandomEmptyPosition() {
     return pos;
 }
 
-bool SnakeEngine::HandleInput() const {
+void SnakeEngine::HandleInput() {
     if (inputDev->HasInput()) {
         Input input = inputDev->TakeInput();
         switch (input) {
             case QUIT:
-                return true;
+                gameOver = true;
+                return;
             case INPUT_UP:
             case INPUT_DOWN:
             case INPUT_RIGHT:
@@ -36,32 +38,25 @@ bool SnakeEngine::HandleInput() const {
                 break;
         }
     }
-    return false;
 }
 
-bool SnakeEngine::Tick() {
+void SnakeEngine::Tick() {
     Position nextPos = snake->NextPosition();
     if (snake->In(nextPos))
-        return true; // Game Over
-    if (nextPos == food) {
+        gameOver = true;
+    else if (nextPos == food) {
         food = RandomEmptyPosition();
         snake->Move(true);
     } else {
         snake->Move();
     }
-    return false;
 }
 
 void SnakeEngine::StartGame() {
-    bool quit = false;
-    while (!quit) {
+    while (!gameOver) {
         display->ReDraw(snake, food);
-
-        quit = HandleInput();
-
-        quit |= Tick();
-
+        HandleInput();
+        Tick();
         Sleep(REFRESH_TIME_MS);
     }
-
 }

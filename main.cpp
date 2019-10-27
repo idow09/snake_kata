@@ -23,8 +23,9 @@ int main() {
 
 /*
  * TODO
- * design better! no static functions
  * score
  * menus
  * set snake speed - tick only now & then
+ * walls collisions
+ * tongue
  */

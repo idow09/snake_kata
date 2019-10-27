@@ -11,6 +11,7 @@ class SnakeEngine {
     InputDevice *inputDev;
     Display *display;
     Position food;
+    bool gameOver;
 
     Position RandomEmptyPosition();
 
@@ -19,11 +20,11 @@ class SnakeEngine {
 public:
     explicit SnakeEngine(Snake *snake, InputDevice *pDevice, Display *pDisplay);
 
-    bool Tick();
+    void Tick();
 
     void StartGame();
 
-    bool HandleInput() const;
+    void HandleInput();
 };
 
 #endif //IDOSNAKE_SNAKEENGINE_H
