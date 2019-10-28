@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Snake::Snake(Direction curDir) : curDir(curDir), nextDir(curDir), tongue(false) {
+Snake::Snake(Direction curDir) : curDir(curDir), tongue(false) {
     body = list<Position>();
     for (int i = 0; i < INIT_SNAKE_SIZE; ++i) {
         body.push_front(Position(0.2 * BOARD_SIZE, int(0.2 * BOARD_SIZE) + i));
@@ -14,13 +14,7 @@ const list<Position> &Snake::getBody() {
 }
 
 void Snake::UpdateDirection(Direction newDir) {
-    if (OppositeDirection(newDir))
-        return;
-    nextDir = newDir;
-}
-
-void Snake::ApplyNewDirection() {
-    curDir = nextDir;
+    curDir = newDir;
 }
 
 Position Snake::NextPosition() {
@@ -54,6 +48,6 @@ Position Snake::FutureTonguePosition() {
     return NextPosition() + curDir;
 }
 
-bool Snake::OppositeDirection(Direction newDir) {
-    return abs(int(newDir) - int(curDir)) == 2;
+Direction Snake::direction() {
+    return curDir;
 }

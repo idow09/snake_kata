@@ -8,7 +8,6 @@ using namespace std;
 
 class Snake {
     Direction curDir;
-    Direction nextDir;
     list <Position> body;
     bool tongue;
 public:
@@ -26,13 +25,11 @@ public:
 
     void setTongue(bool val);
 
-    void ApplyNewDirection();
-
     Position FutureTonguePosition();
 
     bool WithTongue();
 
-    bool OppositeDirection(Direction newDir);
+    Direction direction();
 };
 
 

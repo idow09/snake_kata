@@ -11,6 +11,7 @@ class SnakeEngine {
     InputDevice *inputDev;
     Display *display;
     Position food;
+    Direction newDir;
     bool gameOver;
 
     Position RandomEmptyPosition();
@@ -22,11 +23,13 @@ public:
 
     void Tick();
 
-    void StartGame();
-
     void HandleInput();
 
     bool GameShouldUpdate(unsigned long time) const;
+
+    void StartGame();
+
+    static bool OppositeDirections(Direction dir1, Direction dir2);
 };
 
 #endif //IDOSNAKE_SNAKEENGINE_H

@@ -7,6 +7,7 @@ SnakeEngine::SnakeEngine(Snake *snake, InputDevice *inputDev, Display *display) 
                                                                                   display(display),
                                                                                   food(0.8 * BOARD_SIZE,
                                                                                        0.8 * BOARD_SIZE),
+                                                                                  newDir(snake->direction()),
                                                                                   gameOver(false) {}
 
 Position SnakeEngine::RandomPosition() {
@@ -32,7 +33,8 @@ void SnakeEngine::HandleInput() {
             case INPUT_RIGHT:
             case INPUT_DOWN:
             case INPUT_LEFT:
-                snake->UpdateDirection((Direction) input);
+                if (!OppositeDirections(snake->direction(), (Direction) input))
+                    newDir = (Direction) input;
                 break;
             case SPECIAL:
                 snake->setTongue(true);
@@ -46,7 +48,7 @@ void SnakeEngine::HandleInput() {
 bool SnakeEngine::GameShouldUpdate(unsigned long time) const { return time % GAME_TIME_UNIT_MS == 0; }
 
 void SnakeEngine::Tick() {
-    snake->ApplyNewDirection();
+    snake->UpdateDirection(newDir);
     Position nextPos = snake->NextPosition();
     if (snake->In(nextPos)) {
         gameOver = true;
@@ -72,4 +74,8 @@ void SnakeEngine::StartGame() {
         Sleep(REFRESH_TIME_MS);
         time += REFRESH_TIME_MS;
     }
+}
+
+bool SnakeEngine::OppositeDirections(Direction dir1, Direction dir2) {
+    return abs(int(dir1) - int(dir2)) == 2;
 }
