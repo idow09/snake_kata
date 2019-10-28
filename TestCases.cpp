@@ -2,15 +2,15 @@
 
 #include "catch.hpp"
 #include "Config.h"
-#include "Snake.h"
+#include "SnakeEngine.h"
 
 TEST_CASE("Opposite directions are well detected", "[single-file]") {
-    Snake snake = Snake(RIGHT);
-    REQUIRE(snake.OppositeDirection(LEFT));
-    REQUIRE(!snake.OppositeDirection(UP));
-    snake.UpdateDirection(UP);
-    snake.ApplyNewDirection();
-    REQUIRE(snake.OppositeDirection(DOWN));
+    REQUIRE(SnakeEngine::OppositeDirections(LEFT, RIGHT));
+    REQUIRE(SnakeEngine::OppositeDirections(DOWN, UP));
+    REQUIRE(SnakeEngine::OppositeDirections(UP, DOWN));
+    REQUIRE(!SnakeEngine::OppositeDirections(UP, RIGHT));
+    REQUIRE(!SnakeEngine::OppositeDirections(RIGHT, RIGHT));
+    REQUIRE(!SnakeEngine::OppositeDirections(DOWN, RIGHT));
 }
 
 // Compile & run:
