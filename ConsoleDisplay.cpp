@@ -20,7 +20,7 @@ void ConsoleDisplay::Draw(Symbol symbol) {
             cout << 'o';
             break;
         case SNAKE_TONGUE:
-            cout << '=';
+            cout << '+';
             break;
         case FOOD:
             cout << '*';
