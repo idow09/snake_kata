@@ -3,4 +3,5 @@ project(IdoSnake)
 
 set(CMAKE_CXX_STANDARD 14)
 
+#add_executable(IdoSnake main.cpp Snake.cpp Snake.h Position.cpp Position.h Config.h Display.cpp Display.h ConsoleDisplay.cpp ConsoleDisplay.h SnakeEngine.cpp SnakeEngine.h InputDevice.h ConsoleInputDevice.cpp ConsoleInputDevice.h TestCases.cpp)
 add_executable(IdoSnake main.cpp Snake.cpp Snake.h Position.cpp Position.h Config.h Display.cpp Display.h ConsoleDisplay.cpp ConsoleDisplay.h SnakeEngine.cpp SnakeEngine.h InputDevice.h ConsoleInputDevice.cpp ConsoleInputDevice.h)

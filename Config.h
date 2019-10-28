@@ -7,11 +7,11 @@ static const int REFRESH_TIME_MS = 10;
 static const int GAME_TIME_UNIT_MS = 10 * REFRESH_TIME_MS;
 
 enum Direction {
-    UP = 0, DOWN = 1, RIGHT = 2, LEFT = 3
+    UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3
 };
 
 enum Input {
-    INPUT_UP = 0, INPUT_DOWN = 1, INPUT_RIGHT = 2, INPUT_LEFT = 3, SPECIAL, QUIT, UNKNOWN
+    INPUT_UP = 0, INPUT_RIGHT = 1, INPUT_DOWN = 2, INPUT_LEFT = 3, SPECIAL, QUIT, UNKNOWN
 };
 
 enum Symbol {

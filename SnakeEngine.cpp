@@ -29,8 +29,8 @@ void SnakeEngine::HandleInput() {
                 gameOver = true;
                 return;
             case INPUT_UP:
-            case INPUT_DOWN:
             case INPUT_RIGHT:
+            case INPUT_DOWN:
             case INPUT_LEFT:
                 snake->UpdateDirection((Direction) input);
                 break;

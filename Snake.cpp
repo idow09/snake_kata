@@ -14,22 +14,9 @@ const list<Position> &Snake::getBody() {
 }
 
 void Snake::UpdateDirection(Direction newDir) {
-    switch (newDir) {
-        case LEFT:
-            nextDir = curDir == RIGHT ? curDir : newDir;
-            break;
-        case RIGHT:
-            nextDir = curDir == LEFT ? curDir : newDir;
-            break;
-        case UP:
-            nextDir = curDir == DOWN ? curDir : newDir;
-            break;
-        case DOWN:
-            nextDir = curDir == UP ? curDir : newDir;
-            break;
-        default:
-            break;
-    }
+    if (OppositeDirection(newDir))
+        return;
+    nextDir = newDir;
 }
 
 void Snake::ApplyNewDirection() {
@@ -65,4 +52,8 @@ bool Snake::WithTongue() {
 
 Position Snake::FutureTonguePosition() {
     return NextPosition() + curDir;
+}
+
+bool Snake::OppositeDirection(Direction newDir) {
+    return abs(int(newDir) - int(curDir)) == 2;
 }

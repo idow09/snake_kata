@@ -17,14 +17,14 @@ Position::Position(Position const &pos) {
 
 Position Position::operator+(Direction dir) {
     switch (dir) {
-        case RIGHT:
-            return Position(r, (c + 1) % BOARD_SIZE);
-        case LEFT:
-            return Position(r, (c - 1 + BOARD_SIZE) % BOARD_SIZE);
-        case DOWN:
-            return Position((r + 1) % BOARD_SIZE, c);
         case UP:
             return Position((r - 1 + BOARD_SIZE) % BOARD_SIZE, c);
+        case RIGHT:
+            return Position(r, (c + 1) % BOARD_SIZE);
+        case DOWN:
+            return Position((r + 1) % BOARD_SIZE, c);
+        case LEFT:
+            return Position(r, (c - 1 + BOARD_SIZE) % BOARD_SIZE);
         default:
             return Position(r, c);
     }

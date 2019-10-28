@@ -5,10 +5,10 @@ Input ConsoleInputDevice::TakeInput() {
     switch (_getch()) {
         case 56: // 8
             return INPUT_UP;
-        case 53: // 5
-            return INPUT_DOWN;
         case 54: // 6
             return INPUT_RIGHT;
+        case 53: // 5
+            return INPUT_DOWN;
         case 52: // 4
             return INPUT_LEFT;
         case 32: // ' '

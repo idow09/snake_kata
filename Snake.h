@@ -31,6 +31,8 @@ public:
     Position FutureTonguePosition();
 
     bool WithTongue();
+
+    bool OppositeDirection(Direction newDir);
 };
 
 
