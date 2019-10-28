@@ -20,12 +20,3 @@ int main() {
     engine.StartGame();
     return 0;
 }
-
-/*
- * TODO
- * score
- * menus
- * set snake speed - tick only now & then
- * walls collisions
- * tongue
- */
